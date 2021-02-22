@@ -12,6 +12,7 @@
     <artifactId>lagou-service-resume</artifactId>
     <packaging>jar</packaging>
     <dependencies>
+        <!--功能接口:根据用户id查询该用户默认的简历的公开状态-->
         <dependency>
             <groupId>com.lagou.edu</groupId>
             <artifactId>lagou-service-common</artifactId>
