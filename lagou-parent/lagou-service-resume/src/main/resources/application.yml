@@ -1,0 +1,17 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: lagou-server-resume
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/lagou?useUnicode=true&characterEncoding=utf8
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      naming:
+        #避免驼峰命名转换成下划线命名
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
