@@ -15,7 +15,7 @@ public class ResumeController {
     private ResumeService resumeService;
 
     @GetMapping("/getState/{userId}")
-    public Resume getDefaultResumeByUserId(@PathVariable Long userId){
-       return resumeService.findDefaultResumeByUserId(userId);
+    public Integer getDefaultResumeByUserId(@PathVariable Long userId){
+       return resumeService.findDefaultResumeByUserId(userId).getIsOpenResume();
     }
 }

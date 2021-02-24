@@ -2,6 +2,7 @@ package com.lagou.edu.pojo;
 
 import lombok.Data;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -16,6 +17,7 @@ public class Resume {
     private Long id; // 主键
     private String sex; // 性别
     private String birthday; // ⽣⽇
+    @Column(name="work_year")
     private String workYear; // ⼯作年限
     private String phone; // ⼿机号
     private String email; // 邮箱
