@@ -1,0 +1,23 @@
+server:
+  port: 8762
+
+spring:
+  application:
+    name: lagou-cloud-eureka-server #应⽤名称，会在Eureka中作为服务的id标识（serviceId）
+
+eureka:
+  instance:
+    hostname: LagouCloudEurekaServerB
+  #eureka客户端配置(和server交互)
+  client:
+    service-url: # 客户端与EurekaServer交互的地址，如果是集群，
+    #也需要写其它Server的地址(eureka server集群 中的server相对于其他server 是eureka client)
+      #defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/  单例模式
+      #集群模式下  如果是多个eureka server  用逗号(,)隔开
+      defaultZone: http://LagouCloudEurekaServerA:8761/eureka/
+    #register-with-eureka: false # 单例模式  ⾃⼰就是服务不需要注册⾃⼰
+    register-with-eureka: true # 集群模式  服务需要注册其他eureka server
+   # fetch-registry: false # 单例模式 ⾃⼰就是服务不需要从Eureka Server获取服务信息,默认为true，置为false
+    fetch-registry: false # 集群模式 需要从其他Eureka Server获取服务信息 同步服务列表
+
+
