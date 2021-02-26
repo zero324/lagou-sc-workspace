@@ -15,3 +15,9 @@ spring:
       naming:
         #避免驼峰命名转换成下划线命名
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+eureka:
+  client:
+    service-url: #连接 eureka server 的路径  #把 eureka 集群中的所有 url 都填写了进来，也可以只写⼀台，因为各个 eureka server 可以同步注册表
+      defaultZone: http://LagouCloudEurekaServerA:8761/eureka,http://LagouCloudEurekaServerB:8762/eureka
+    fetch-registry: true
+    register-with-eureka: true
