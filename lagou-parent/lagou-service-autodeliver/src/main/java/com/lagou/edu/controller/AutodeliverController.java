@@ -25,7 +25,7 @@ public class AutodeliverController {
         return  forObject;
     }*/
 
-    @RequestMapping("/resumestate/{userId}")
+  /*  @RequestMapping("/resumestate/{userId}")
     public Integer resumestate(@PathVariable Long userId) {
         //discoveryClient  客户端获取 服务列表
         List<ServiceInstance> instances = discoveryClient.getInstances("lagou-server-resume");
@@ -38,5 +38,18 @@ public class AutodeliverController {
         System.out.println("从eureka server集群中获取 服务信息拼接的url "+url);
         Integer forObject = restTemplate.getForObject(url, Integer.class);
         return forObject;
+    }*/
+
+    /**
+     * ribbon 做负载均衡
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/resumestate/{userId}")
+    public Integer resumestate(@PathVariable Long userId){
+        //利用ribbon做负载均衡  在注册testtemplate方法上加@LoadBalance
+        String url="http://lagou-server-resume/resume/getState/" + userId;
+        Integer forObject = restTemplate.getForObject(url, Integer.class);
+        return  forObject;
     }
 }

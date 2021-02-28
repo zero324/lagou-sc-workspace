@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>lagou-service-resume</artifactId>
+    <artifactId>lagou-service-resume-8080</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <!--功能接口:根据用户id查询该用户默认的简历的公开状态-->

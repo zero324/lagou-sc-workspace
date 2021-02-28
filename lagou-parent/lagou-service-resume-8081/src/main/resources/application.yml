@@ -1,0 +1,33 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: lagou-server-resume
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/springcloud?useUnicode=true&characterEncoding=utf8&&serverTimezone=UTC
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      naming:
+        #避免驼峰命名转换成下划线命名
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+eureka:
+  instance:
+    prefer-ip-address: true #实例显示名称 (早期版本默认显示的是主机名  - LAPTOP-LLGBERGE.lan:lagou-server-resume:8080 )
+      #新版本默认是 ip  为了兼容老版本 注意 不自定义instance-id的话  实例显示没有变化
+      #自定义eureka实例显示名称   192.168.199.210:lagou-server-resume:8080
+      #⾃定义实例显示格式，加上版本号，便于多版本管理，注意是ip-address，早期版本是ipAddress
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+    #自定义元数据
+    metadata-map:
+      cluster: cl1
+      rigin: ri1
+  client:
+    service-url: #连接 eureka server 的路径  #把 eureka 集群中的所有 url 都填写了进来，也可以只写⼀台，因为各个 eureka server 可以同步注册表
+      defaultZone: http://LagouCloudEurekaServerA:8761/eureka,http://LagouCloudEurekaServerB:8762/eureka
+    fetch-registry: true
+    register-with-eureka: true
