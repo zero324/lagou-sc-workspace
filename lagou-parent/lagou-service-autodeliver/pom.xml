@@ -11,11 +11,16 @@
 
     <artifactId>lagou-service-autodeliver</artifactId>
     <packaging>jar</packaging>
-    <!--<dependencies>
+    <dependencies>
+        <!-- <dependency>
+             <groupId>com.lagou.edu</groupId>
+             <artifactId>lagou-service-common</artifactId>
+             <version>1.0-SNAPSHOT</version>
+         </dependency>-->
+         <!--Eureka client依赖-->
         <dependency>
-            <groupId>com.lagou.edu</groupId>
-            <artifactId>lagou-service-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-    </dependencies>-->
+    </dependencies>
 </project>

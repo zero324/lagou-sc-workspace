@@ -1,2 +1,18 @@
 server:
   port: 8090
+spring:
+  application:
+    name: lagou-service-autodeliver
+
+eureka:
+  instance:
+    prefer-ip-address: true #实例显示名称 (早期版本默认显示的是主机名  - LAPTOP-LLGBERGE.lan:lagou-server-resume:8080 )
+      #新版本默认是 ip  为了兼容老版本 注意 不自定义instance-id的话  实例显示没有变化
+    #自定义eureka实例显示名称   192.168.199.210:lagou-server-resume:8080
+    #⾃定义实例显示格式，加上版本号，便于多版本管理，注意是ip-address，早期版本是ipAddress
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}:@project.version@
+  client:
+    service-url:
+      defaultZone: http://LagouCloudEurekaServerA:8761/eureka,http://LagouCloudEurekaServerB:8762/eureka
+    fetch-registry: true
+    register-with-eureka: true

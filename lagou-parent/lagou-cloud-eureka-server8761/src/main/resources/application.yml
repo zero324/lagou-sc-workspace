@@ -8,6 +8,10 @@ spring:
 eureka:
   instance:
     hostname: LagouCloudEurekaServerA
+    prefer-ip-address: true #实例显示名称 (早期版本默认显示的是主机名  - LAPTOP-LLGBERGE.lan:lagou-cloud-eureka-server:8762 )
+    #新版本默认是 ip  为了兼容老版本 注意 不自定义instance-id的话  实例显示没有变化
+    #自定义eureka实例显示名称
+    instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
   #eureka客户端配置(和server交互)
   client:
     service-url: # 客户端与EurekaServer交互的地址，如果是集群，
