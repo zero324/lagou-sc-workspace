@@ -16,3 +16,7 @@ eureka:
       defaultZone: http://LagouCloudEurekaServerA:8761/eureka,http://LagouCloudEurekaServerB:8762/eureka
     fetch-registry: true
     register-with-eureka: true
+#针对的被调⽤⽅微服务名称,不加就是全局⽣效
+lagou-service-resume:
+  ribbon:
+  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #负载策略调整
