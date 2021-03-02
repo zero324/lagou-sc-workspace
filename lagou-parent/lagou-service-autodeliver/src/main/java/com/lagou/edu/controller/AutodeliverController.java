@@ -1,5 +1,7 @@
 package com.lagou.edu.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +49,27 @@ public class AutodeliverController {
      */
     @RequestMapping("/resumestate/{userId}")
     public Integer resumestate(@PathVariable Long userId){
+        //利用ribbon做负载均衡  在注册testtemplate方法上加@LoadBalance
+        String url="http://lagou-server-resume/resume/getState/" + userId;
+        Integer forObject = restTemplate.getForObject(url, Integer.class);
+        return  forObject;
+    }
+
+    /**
+     * 提供者模拟处理超时   服务消费端 断路器设置
+     * @param userId
+     * @return
+     */
+    // 使⽤@HystrixCommand注解进⾏熔断控制
+   @HystrixCommand(
+            // commandProperties熔断的⼀些细节属性配置
+            commandProperties = {
+                    //一个属性一个@HystrixProperty注解  属性在hystrixcommandproperties类里
+                    @HystrixProperty(name ="execution.isolation.thread.timeoutInMilliseconds",value="2000")//默认是1000
+            }
+    )
+    @RequestMapping("/resumestatetimeout/{userId}")
+    public Integer resumestatetimeout(@PathVariable Long userId){
         //利用ribbon做负载均衡  在注册testtemplate方法上加@LoadBalance
         String url="http://lagou-server-resume/resume/getState/" + userId;
         Integer forObject = restTemplate.getForObject(url, Integer.class);
