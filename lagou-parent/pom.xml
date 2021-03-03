@@ -14,6 +14,8 @@
         <module>lagou-service-autodeliver</module>
         <module>lagou-cloud-eureka-server8761</module>
         <module>lagou-cloud-eureka-server8762</module>
+        <module>lagou=cloud-hystrix-dashboard</module>
+        <module>lagou-cloud-hystrix-turbine</module>
     </modules>
     <!--⽗⼯程打包⽅式为pom-->
     <packaging>pom</packaging>

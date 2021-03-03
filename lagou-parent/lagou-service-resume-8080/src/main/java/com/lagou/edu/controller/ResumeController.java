@@ -21,7 +21,7 @@ public class ResumeController {
     public Integer getDefaultResumeByUserId(@PathVariable Long userId){
         //return resumeService.findDefaultResumeByUserId(userId).getIsOpenResume();
         try {
-            Thread.sleep(20000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
