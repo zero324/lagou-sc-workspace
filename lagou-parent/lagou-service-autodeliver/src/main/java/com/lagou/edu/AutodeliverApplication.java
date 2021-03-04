@@ -30,7 +30,7 @@ public class AutodeliverApplication {
     }
 
     /*
-        在被监测的微服务中注册监控servlet（⾃动投递微服务，监控数据就是来⾃于这个微服务）
+        在被监测的微服务中注册监控servlet（⾃动投递微服务，监控数据就是来⾃于这个微服务）前提的有actuator jar
      */
     @Bean
     public ServletRegistrationBean getServlet() {
