@@ -21,7 +21,7 @@ lagou-service-resume:
     #请求连接超时时间
     #ConnectTimeout: 2000
     #请求处理超时时间
-    #ReadTimeout: 5000
+    ReadTimeout: 5000
     #对所有操作都进⾏重试
     OkToRetryOnAllOperations: true
     ####根据如上配置，当访问到故障请求的时候，它会再尝试访问⼀次当前实例（次数由MaxAutoRetries配置），
@@ -34,3 +34,11 @@ lagou-service-resume:
 feign:
   hystrix:
    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
