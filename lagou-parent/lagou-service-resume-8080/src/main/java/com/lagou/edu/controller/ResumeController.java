@@ -20,11 +20,13 @@ public class ResumeController {
     @GetMapping("/getState/{userId}")
     public Integer getDefaultResumeByUserId(@PathVariable Long userId){
         //return resumeService.findDefaultResumeByUserId(userId).getIsOpenResume();
+        System.out.println("调用了lagou-service-resume-8080");
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
         return port;
     }
 }

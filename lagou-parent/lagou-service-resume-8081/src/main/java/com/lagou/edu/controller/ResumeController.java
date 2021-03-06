@@ -19,6 +19,7 @@ public class ResumeController {
     private Integer port;
     @GetMapping("/getState/{userId}")
     public Integer getDefaultResumeByUserId(@PathVariable Long userId){
+        System.out.println("调用了lagou-service-resume-8081");
        //return resumeService.findDefaultResumeByUserId(userId).getIsOpenResume();
        return port;
     }

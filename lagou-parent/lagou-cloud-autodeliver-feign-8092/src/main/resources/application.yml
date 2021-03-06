@@ -34,7 +34,14 @@ lagou-service-resume:
 feign:
   hystrix:
    enabled: true
-
+  #Feign ⽀持对请求和响应进⾏GZIP压缩，以减少通信过程中的性能损耗。通过下⾯的参数 即可开启请求#与响应的压缩功能
+  compression:
+    request:
+     enabled: true # 开启请求压缩
+     mime-types: text/html,application/xml,application/json # 设置压缩的数据类型，此处也是默认值
+     min-request-size: 2048 # 设置触发压缩的⼤⼩下限，此处也是默认值 压缩是个算法  不设置条件浪费cpu资源
+    response:
+     enabled: true # 开启响应压缩
 hystrix:
   command:
     default:
@@ -45,3 +52,11 @@ hystrix:
 # feign 默认超时时间为一秒   如果ribbon设置超时间  ReadTimeout(请求处理时间) 那么就用ribbon的超时时间
 #另外一个就是hystrix 的超时时间  超过超时时间熔断调用failback的方法直接返回结果   如果ribbon 还没有做完重试 切换实例的那么会继续执行
 #实际过程中 hystrix的超时时间要等于于ribbon 请求处理 重试 切换的时间总和 之后
+#重点 如果 ribbon的超时时间小于hystrix的超时时间 并且 没有重试和切换实例那么 那么ribbon超时后 hystrix调用failback方法
+
+
+#feign日志 依赖于logger的debug级别
+logging:
+  level:
+  # Feign⽇志只会对⽇志级别为debug的做出响应
+   com.lagou.edu.service.ResumeFeignClient: debug
