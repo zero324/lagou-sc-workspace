@@ -1,6 +1,5 @@
-package com.lagou.edu.controller.service;
+package com.lagou.edu.service;
 
-import com.lagou.edu.controller.ResumeFeignClient;
 import org.springframework.stereotype.Component;
 
 @Component

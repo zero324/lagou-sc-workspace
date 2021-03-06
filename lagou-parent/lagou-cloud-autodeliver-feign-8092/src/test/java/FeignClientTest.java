@@ -1,5 +1,5 @@
 import com.lagou.edu.AutodeliverApplication8092;
-import com.lagou.edu.controller.ResumeFeignClient;
+import com.lagou.edu.service.ResumeFeignClient;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

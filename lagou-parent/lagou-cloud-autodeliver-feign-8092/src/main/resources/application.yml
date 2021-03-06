@@ -42,3 +42,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
+# feign 默认超时时间为一秒   如果ribbon设置超时间  ReadTimeout(请求处理时间) 那么就用ribbon的超时时间
+#另外一个就是hystrix 的超时时间  超过超时时间熔断调用failback的方法直接返回结果   如果ribbon 还没有做完重试 切换实例的那么会继续执行
+#实际过程中 hystrix的超时时间要等于于ribbon 请求处理 重试 切换的时间总和 之后
