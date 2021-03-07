@@ -7,9 +7,10 @@ spring:
    config:
     server:
      git:
-      uri: https://github.com/zero324/lagou-config-repo.git #配置git服务地址
-      username: 272880214@qq.com #配置git⽤户名
-      password: fw199203243718 #配置git密码
+      #uri: https://github.com/zero324/lagou-config-repo.git #配置git服务地址
+      uri: git@github.com:zero324/lagou-config-repo.git #配置git服务地址
+      #username: 272880214@qq.com #配置git⽤户名
+      #password: fw199203243718 #配置git密码
       search-paths:
        - lagou-config-repo
       # 读取分⽀
