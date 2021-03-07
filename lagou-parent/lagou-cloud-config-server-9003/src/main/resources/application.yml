@@ -15,7 +15,7 @@ eureka:
    instance-id: ${spring.cloud.client.ipaddress}:${spring.application.name}:${server.port}:@project.version@
 spring:
   application:
-   name: lagou-cloud-config-server-9003
+   name: lagou-cloud-config-server
 
 #针对的被调⽤⽅微服务名称,不加就是全局⽣效
 #lagou-server-resume:

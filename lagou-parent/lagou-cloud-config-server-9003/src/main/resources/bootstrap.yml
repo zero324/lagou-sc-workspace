@@ -13,8 +13,4 @@ spring:
       search-paths:
        - lagou-config-repo
       # 读取分⽀
-      label: master
-#针对的被调⽤⽅微服务名称,不加就是全局⽣效
-#lagou-service-resume:
-# ribbon:
-#  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RoundRobinRule #负载策略调整
+      label: main
