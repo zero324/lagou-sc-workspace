@@ -37,4 +37,4 @@ spring:
        #Predicate 组合成其他复杂的逻辑（⽐如：与，或，⾮）。
         - Path=/resume/**
       filters:
-        - StripPrefix=1 #Global优先于  StripPrefix filter
+        - StripPrefix=1 #Global优先于  StripPrefix filter 因为 实现了Ordered  getOrder  返回的是0  数字越小优先级越大
