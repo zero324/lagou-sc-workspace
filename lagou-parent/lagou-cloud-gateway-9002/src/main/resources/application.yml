@@ -1,3 +1,6 @@
+
+#为了系统的高可用  gateway网关应该是个集群  利用nginx(nginx集群) 做网关的负载均衡
+
 server:
   port: 9002
 eureka:
