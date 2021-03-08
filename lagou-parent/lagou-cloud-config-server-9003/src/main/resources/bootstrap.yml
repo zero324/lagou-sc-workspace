@@ -7,6 +7,7 @@ spring:
    config:
     server:
      git:
+      #skipSslValidation: true
       uri: https://github.com/zero324/lagou-config-repo.git #配置git服务地址
       #uri: git@github.com:zero324/lagou-config-repo.git #配置git服务地址
       username: 272880214@qq.com #配置git⽤户名
@@ -15,3 +16,10 @@ spring:
        - lagou-config-repo
       # 读取分⽀
       label: main
+      #重要点
+      #设置忽略本地ssl设置
+      ignore-local-ssh-settings: true
+      #忽略ssl校验
+      skip-ssl-validation: true
+      #连接git的超时时间
+      timeout: 10

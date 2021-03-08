@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/configclient")
 public class ConfigClientController {
-    @Value("${lagou.message}")
+    @Value("${lagoumessage}")
     private String message;
 
     @RequestMapping("viewconfig")
