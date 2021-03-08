@@ -1,0 +1,20 @@
+spring:
+  cloud:
+    config:
+      name: lagou-service-resume #配置⽂件名称
+      profile: dev #后缀名称
+      label: main #分⽀名称
+      uri: http://localhost:9003 #ConfigServer配置中⼼地址
+
+management:
+  endpoints:
+   - web:
+      exposure:
+       include: refresh
+    #也可以暴露所有的端⼝
+   - web:
+      exposure:
+       include: "*"
+# 需要依赖actuator jar包依赖  Client客户端使⽤到配置信息的类上添加@RefreshScope
+#⼿动向Client客户端发起POST请求，http://localhost:8092/actuator/refresh，刷新配置信息
+#也可以暴露所有的端⼝
