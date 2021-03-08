@@ -16,7 +16,12 @@ eureka:
 spring:
   application:
    name: lagou-cloud-config-server
-
+  #spring rabbitmq 配置
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 #针对的被调⽤⽅微服务名称,不加就是全局⽣效
 #lagou-server-resume:
 # ribbon:
@@ -25,9 +30,12 @@ spring:
 # springboot中暴露健康检查等断点接⼝
 management:
   endpoints:
-   web:
-    exposure:
-     include: "*"
+   - web:
+      exposure:
+       include: "*"
+   - web:
+      exposure:
+       include: bus-refresh
   # 暴露健康接⼝的细节
   endpoint:
    health:
