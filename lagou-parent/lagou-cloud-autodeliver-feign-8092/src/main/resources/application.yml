@@ -3,6 +3,12 @@ server:
 spring:
   application:
     name: lagou-cloud-autodeliver-feign-8092
+  #配置消息队列信息
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    #username: guest
+    #password: guest
 eureka:
   client:
     register-with-eureka: true
