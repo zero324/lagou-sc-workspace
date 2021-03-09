@@ -19,6 +19,8 @@
         <module>lagou-cloud-hystrix-turbine</module>
         <module>lagou-cloud-gateway-9002</module>
         <module>lagou-cloud-config-server-9003</module>
+        <module>lagou-cloud-stream-producer-9090</module>
+        <module>lagou-cloud-stream-comsumer-9091</module>
 
     </modules>
     <!--⽗⼯程打包⽅式为pom-->
