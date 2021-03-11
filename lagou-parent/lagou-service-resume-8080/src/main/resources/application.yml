@@ -3,18 +3,21 @@ server:
 spring:
   application:
     name: lagou-server-resume
-  datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    username: root
-    password: 123456
-    url: jdbc:mysql://localhost:3306/springcloud?useUnicode=true&characterEncoding=utf8&&serverTimezone=UTC
-  jpa:
-    show-sql: true
-    database: mysql
-    hibernate:
-      naming:
-        #避免驼峰命名转换成下划线命名
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  #zipkin client 配置
+  zipkin:
+    # zipkin server的请求地址
+    base-url: http://127.0.0.1:9411
+    # web 客户端将踪迹⽇志数据通过⽹络请求的⽅式传送到服务端，另外还有配置
+    # kafka/rabbit 客户端将踪迹⽇志数据传递到mq进⾏中转
+    sender:
+      type: web
+  sleuth:
+    sampler:
+      # 采样率 1 代表100%全部采集 ，默认0.1 代表10% 的请求踪迹数据会被采集
+      # ⽣产环境下，请求量⾮常⼤，没有必要所有请求的踪迹数据都采集分析，对于⽹络包括
+      #server端压⼒都是⽐较⼤的，可以配置采样率采集⼀定⽐例的请求的踪迹数据进⾏分析即可
+      probability: 1
+
 eureka:
   instance:
     prefer-ip-address: true #实例显示名称 (早期版本默认显示的是主机名  - LAPTOP-LLGBERGE.lan:lagou-server-resume:8080 )
@@ -31,3 +34,8 @@ eureka:
       defaultZone: http://LagouCloudEurekaServerA:8761/eureka,http://LagouCloudEurekaServerB:8762/eureka
     fetch-registry: true
     register-with-eureka: true
+#分布式链路追踪
+logging:
+  level:
+   org.springframework.web.servlet.DispatcherServlet: debug
+   org.springframework.cloud.sleuth: debug

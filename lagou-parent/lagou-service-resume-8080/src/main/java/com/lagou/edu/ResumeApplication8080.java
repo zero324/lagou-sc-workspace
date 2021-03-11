@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @SpringBootApplication
-@EntityScan("com.lagou.edu.pojo")
+//@EntityScan("com.lagou.edu.pojo")
 //
 //@EnableEurekaClient  eureka 专属的注解
 @EnableDiscoveryClient  //spring cloud 通用的 注册中心客户端注解    spring cloud 在edgware 版本及其之后的  可以不添加注解

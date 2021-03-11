@@ -16,7 +16,7 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 @Slf4j//这个注解是lombok  jar包中的注解
-@Component
+//@Component
 public class BlackListFilter implements GlobalFilter, Ordered {
     // 模拟⿊名单（实际可以去数据库或者redis中查询）
     private static List<String> blackList = new ArrayList<>();

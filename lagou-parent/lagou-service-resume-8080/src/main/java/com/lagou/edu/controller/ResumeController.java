@@ -1,6 +1,5 @@
 package com.lagou.edu.controller;
 
-import com.lagou.edu.pojo.Resume;
 import com.lagou.edu.service.ResumeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +21,7 @@ public class ResumeController {
         //return resumeService.findDefaultResumeByUserId(userId).getIsOpenResume();
         System.out.println("调用了lagou-service-resume-8080");
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

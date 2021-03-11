@@ -13,16 +13,25 @@
     <packaging>jar</packaging>
     <dependencies>
         <!--功能接口:根据用户id查询该用户默认的简历的公开状态-->
-        <dependency>
+       <!-- <dependency>
             <groupId>com.lagou.edu</groupId>
             <artifactId>lagou-service-common</artifactId>
             <version>1.0-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
         <!--Eureka client依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
-
+        <!--链路追踪-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-sleuth</artifactId>
+        </dependency>
+        <!--zipkin client客户端-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-zipkin</artifactId>
+        </dependency>
     </dependencies>
 </project>
