@@ -22,6 +22,7 @@
         <module>lagou-cloud-stream-producer-9090</module>
         <module>lagou-cloud-stream-comsumer-9091</module>
         <module>lagou-cloud-zipkin-server-9411</module>
+        <module>lagou-cloud-oauth-server-9999</module>
 
     </modules>
     <!--⽗⼯程打包⽅式为pom-->
