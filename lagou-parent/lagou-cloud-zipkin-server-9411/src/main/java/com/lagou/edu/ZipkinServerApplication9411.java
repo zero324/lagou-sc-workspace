@@ -21,7 +21,7 @@ public class ZipkinServerApplication9411 {
 
     //注入事务管理
     @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource){
+    public PlatformTransactionManager txManager(DataSource dataSource){
         return new DataSourceTransactionManager(dataSource);
     }
 }
