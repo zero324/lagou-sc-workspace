@@ -115,10 +115,15 @@ public class OauthServerConfiger  extends AuthorizationServerConfigurerAdapter {
         return new JwtTokenStore(jwtAccessTokenConverter());
     }
     private String sign_key="lagou123";
+
+    /**
+     *返回jwt令牌转换器(帮助我们生成jwt令牌)
+     * 这里我们把秘钥穿进去
+     */
     public JwtAccessTokenConverter jwtAccessTokenConverter(){
         JwtAccessTokenConverter jwtAccessTokenConverter=new JwtAccessTokenConverter();
         jwtAccessTokenConverter.setSigningKey(sign_key);
-        jwtAccessTokenConverter.setVerifier(new MacSigner("sign_key"));
+        jwtAccessTokenConverter.setVerifier(new MacSigner("sign_key"));//MacSigner 是对称加密
 
         return jwtAccessTokenConverter;
     }
