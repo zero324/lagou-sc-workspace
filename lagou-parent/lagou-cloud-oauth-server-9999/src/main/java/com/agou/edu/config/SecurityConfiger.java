@@ -1,4 +1,5 @@
 package com.agou.edu.config;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,15 +8,22 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+
 import java.util.ArrayList;
 
 /**
  * 该配置类，主要处理⽤户名和密码的校验等事宜
  */
 @Configuration
-public class SecurityConfiger extends WebSecurityConfigurerAdapter{
+public class SecurityConfiger extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     /**
      * 注册⼀个认证管理器对象到容器
@@ -26,8 +34,10 @@ public class SecurityConfiger extends WebSecurityConfigurerAdapter{
             Exception {
         return super.authenticationManagerBean();
     }
+
     /**
      * 密码编码对象（密码不进⾏加密处理）
+     *
      * @return
      */
     @Bean
@@ -35,8 +45,7 @@ public class SecurityConfiger extends WebSecurityConfigurerAdapter{
         return NoOpPasswordEncoder.getInstance();
     }
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     /**
      * 处理⽤户名和密码验证事宜
@@ -47,10 +56,12 @@ public class SecurityConfiger extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws
             Exception {
-        // 在这个⽅法中就可以去关联数据库了，当前我们先把⽤户信息配置在内存中
+       /* // 在这个⽅法中就可以去关联数据库了，当前我们先把⽤户信息配置在内存中
         // 实例化⼀个⽤户对象(相当于数据表中的⼀条⽤户记录)
         UserDetails user = new User("admin","123456",new ArrayList<>());
         auth.inMemoryAuthentication()
-                .withUser(user).passwordEncoder(passwordEncoder);
+                .withUser(user).passwordEncoder(passwordEncoder);*/
+        //从数据库中获取用户的信息
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);//对密码进行编码
     }
 }
