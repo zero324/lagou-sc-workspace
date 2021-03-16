@@ -11,7 +11,9 @@
         <module>lagou-service-common</module>
         <module>lagou-service-resume-8080</module>
         <module>lagou-service-resume-8081</module>
+        <module>lagou-service-resume-8082-nacos</module>
         <module>lagou-service-autodeliver</module>
+        <module>lagou-service-autodeliver-8093-nacos</module>
         <module>lagou-cloud-autodeliver-feign-8092</module>
         <module>lagou-cloud-eureka-server8761</module>
         <module>lagou-cloud-eureka-server8762</module>
@@ -42,6 +44,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <!--SCA -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>2.1.0.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!--SCA -->
         </dependencies>
     </dependencyManagement>
     <dependencies>

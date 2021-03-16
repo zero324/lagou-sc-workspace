@@ -1,0 +1,45 @@
+server:
+  port: 8093
+spring:
+  application:
+    name: lagou-service-autodeliver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848,127.0.0.1:8849,127.0.0.1:8850 #配置集群
+        #cluster-name: "bj" 优先访问同名集群的实例
+        #namespace: "设置namespaceId" 不同命名空间的实例不能相互访问
+#针对的被调⽤⽅微服务名称,不加就是全局⽣效
+lagou-server-resume:
+  ribbon:
+   NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #负载策略调整
+
+# springboot中暴露健康检查等端点接⼝
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  # 暴露健康接⼝的细节
+  endpoint:
+    health: # http://localhost:8090/actuator/health
+     show-details: always
+
+# 配置全局熔断策略：
+hystrix:
+  command:
+    default:
+     circuitBreaker:
+        # 强制打开熔断器，如果该属性设置为true，强制断路器进⼊打开状态，将会拒绝所有的请求。 默认false关闭的
+       forceOpen: false
+        # 触发熔断错误⽐例阈值，默认值50%
+       errorThresholdPercentage: 50
+       # 熔断后休眠时⻓，默认值5秒
+       sleepWindowInMilliseconds: 3000
+       # 熔断触发最⼩请求次数，默认值是20
+       requestVolumeThreshold: 2
+     execution:
+       isolation:
+         thread:
+          # 熔断超时设置，默认为1秒
+         timeoutInMilliseconds: 3000
