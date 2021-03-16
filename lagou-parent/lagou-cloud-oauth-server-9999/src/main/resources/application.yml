@@ -3,6 +3,23 @@ server:
 Spring:
   application:
    name: lagou-cloud-oauth-server
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/oauth?useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true&serverTimezone=UTC
+    username: root
+    password: 123456
+  druid:
+      initialSize: 10
+      minIdle: 10
+      maxActive: 30
+      maxWait: 50000
+  jpa:
+    show-sql: true
+    database: mysql
+    hibernate:
+      naming:
+        #避免驼峰命名转换成下划线命名
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 eureka:
   client:
    serviceUrl: # eureka server的路径

@@ -30,7 +30,7 @@ eureka:
     fetch-registry: true
     register-with-eureka: true
 #针对的被调⽤⽅微服务名称,不加就是全局⽣效
-lagou-service-resume:
+lagou-server-resume:
   ribbon:
    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #负载策略调整
 

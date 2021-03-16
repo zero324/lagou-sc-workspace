@@ -4,15 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.jwt.crypto.sign.MacSigner;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * 当前类为Oauth2 server的配置类（需要继承特定的⽗类
@@ -23,6 +30,8 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 public class OauthServerConfiger  extends AuthorizationServerConfigurerAdapter {
     @Autowired
     private AuthenticationManager authenticationManager;
+    @Autowired
+    private DataSource dataSource;
 
     /**
      * 认证服务器最终是以api接⼝的⽅式对外提供服务（校验合法性并⽣成令牌、校验令牌等）
@@ -58,7 +67,7 @@ public class OauthServerConfiger  extends AuthorizationServerConfigurerAdapter {
     public void configure(ClientDetailsServiceConfigurer clients) throws
             Exception {
         super.configure(clients);
-        clients.inMemory()// 客户端信息存储在什么地⽅，可以在内存中，可以在数据库⾥
+       /* clients.inMemory()// 客户端信息存储在什么地⽅，可以在内存中，可以在数据库⾥
                 .withClient("client_lagou") // 添加⼀个client配置,指定其 client_id
                 .secret("abcxyz") // 指定客户端的密码/安全码
                 .resourceIds("autodeliver") // 指定客户端所能访问资源
@@ -67,7 +76,12 @@ public class OauthServerConfiger  extends AuthorizationServerConfigurerAdapter {
          //⽤哪种⽅式颁发token，需要客户端调⽤的时候传递参数指定
                 .authorizedGrantTypes("password","refresh_token")
                 // 客户端的权限范围，此处配置为all全部即可
-                .scopes("all");
+                .scopes("all");*/
+       //从数据库中获取client的信息  表和字段都是固定的
+       clients.withClientDetails(createClientDetailsService());
+    }
+    public ClientDetailsService createClientDetailsService(){
+        return new JdbcClientDetailsService(dataSource);
     }
 
 
@@ -97,7 +111,21 @@ public class OauthServerConfiger  extends AuthorizationServerConfigurerAdapter {
      token以什么形式存储
     */
     public TokenStore tokenStore(){
-        return new InMemoryTokenStore();
+       // return new InMemoryTokenStore();
+        return new JwtTokenStore(jwtAccessTokenConverter());
+    }
+    private String sign_key="lagou123";
+
+    /**
+     *返回jwt令牌转换器(帮助我们生成jwt令牌)
+     * 这里我们把秘钥穿进去
+     */
+    public JwtAccessTokenConverter jwtAccessTokenConverter(){
+        JwtAccessTokenConverter jwtAccessTokenConverter=new JwtAccessTokenConverter();
+        jwtAccessTokenConverter.setSigningKey(sign_key);
+        jwtAccessTokenConverter.setVerifier(new MacSigner("sign_key"));//MacSigner 是对称加密
+
+        return jwtAccessTokenConverter;
     }
 
     /**
@@ -110,6 +138,8 @@ public class OauthServerConfiger  extends AuthorizationServerConfigurerAdapter {
                 DefaultTokenServices();
         defaultTokenServices.setSupportRefreshToken(true); // 是否开启令牌刷新
         defaultTokenServices.setTokenStore(tokenStore());
+        //设置jwt增强token
+        defaultTokenServices.setTokenEnhancer(jwtAccessTokenConverter());
         // 设置令牌有效时间（⼀般设置为2个⼩时）
         defaultTokenServices.setAccessTokenValiditySeconds(20); //access_token就是我们请求资源需要携带的令牌
         // 设置刷新令牌的有效时间
