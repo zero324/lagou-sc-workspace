@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/resume")
-@RefreshScope
+@RefreshScope//设置动态刷新配置  注意是在使用配置中心配置(变量)的类上增加
 public class ResumeController {
     @Autowired
     private ResumeService resumeService;
@@ -20,7 +20,7 @@ public class ResumeController {
     @Value("${server.port}")
     private Integer port;
     @Value("${lagou.message}")
-    private Integer message;
+    private String message;
     @GetMapping("/getState/{userId}")
     public Integer getDefaultResumeByUserId(@PathVariable Long userId){
         System.out.println("调用了lagou-service-resume-8082");
