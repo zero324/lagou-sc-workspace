@@ -18,4 +18,10 @@ spring:
   cloud:
     nacos:
       discovery:
+        # 集群中各节点信息都配置在这⾥（域名-VIP-绑定映射到各个实例的地址信息）
         server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yaml
+        namespace: 83faa9bf-9b3b-4dc5-a3b5-77e61b2692a8
+        group: DEFAULT_GROUP
