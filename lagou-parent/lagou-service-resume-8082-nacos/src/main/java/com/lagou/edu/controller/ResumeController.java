@@ -21,10 +21,14 @@ public class ResumeController {
     private Integer port;
     @Value("${lagou.message}")
     private String message;
+    @Value("${lagou.abc}")
+    private String abc;
+    @Value("${lagou.def}")
+    private String def;
     @GetMapping("/getState/{userId}")
     public Integer getDefaultResumeByUserId(@PathVariable Long userId){
         System.out.println("调用了lagou-service-resume-8082");
-        System.out.println("配置中心配置lagou.message"+message);
+        System.out.println("配置中心配置lagou.message"+message+abc+def);
        //return resumeService.findDefaultResumeByUserId(userId).getIsOpenResume();
        return port;
     }

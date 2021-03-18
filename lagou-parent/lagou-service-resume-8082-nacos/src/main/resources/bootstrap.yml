@@ -21,6 +21,7 @@ spring:
       discovery:
         # 集群中各节点信息都配置在这⾥（域名-VIP-绑定映射到各个实例的地址信息）
         server-addr: 127.0.0.1:8848
+        #namespace: 83faa9bf-9b3b-4dc5-a3b5-77e61b2692a8
       #nacos config配置
       config:
         server-addr: 127.0.0.1:8848
@@ -34,8 +35,16 @@ spring:
         #file-exetension 为配置内容的数据格式，可以通过配置项
         #spring.cloud.nacos.config.file-extension 来配置。⽬前只⽀持 properties 和 yaml
         #类型
-        file-extension: yaml  #默认生成 lagou-server-resume.yaml
+        file-extension: yaml  #默认properties 默认生成 lagou-server-resume.yaml
         #命名空间id 默认是public
-        namespace: d9c2d055-47aa-44fa-92f3-ef5b639b5890
+        namespace: 83faa9bf-9b3b-4dc5-a3b5-77e61b2692a8
         #分组配置  默认是DEFAULT_GROUP
         group: DEFAULT_GROUP
+        ext-config[0]:
+          data-id: abc.yaml
+          group: DEFAULT_GROUP
+          refresh: true
+        ext-config[1]:
+          data-id: def.yaml
+          group: DEFAULT_GROUP
+          refresh: true
