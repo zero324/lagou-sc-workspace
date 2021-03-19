@@ -1,5 +1,6 @@
 package com.lagou.edu.controller;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,10 +46,21 @@ public class AutodeliverController {
         Integer forObject = restTemplate.getForObject(url, Integer.class);
         return forObject;
     }
-
-
+    //注意 不符合sentinel规则的方法和java运行时出错的服务降级方法都是静态方法(static方法)
+   /* @SentinelResource(value = "resumestatetimeoutfailback",blockHandlerClass =
+            SentinelFallbackClass.class,//blockHandler 是不符合sentinel 熔断规则
+            blockHandler = "handleException",fallback =
+            "handleError",fallbackClass = SentinelFallbackClass.class)//fallback 是java运行时的错误*/
     @RequestMapping("/resumestatetimeoutfailback/{userId}")
     public Integer resumestatetimeoutfailback(@PathVariable Long userId) {
+        // 模拟降级：模拟平均响应时间
+       /* try {
+            Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }*/
+        // 模拟降级：异常⽐例
+        int i = 1/0;
         //利用ribbon做负载均衡  在注册testtemplate方法上加@LoadBalance
         String url = "http://lagou-server-resume/resume/getState/" + userId;
         Integer forObject = restTemplate.getForObject(url, Integer.class);
