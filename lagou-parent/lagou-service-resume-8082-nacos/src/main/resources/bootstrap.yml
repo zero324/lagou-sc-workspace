@@ -37,7 +37,8 @@ spring:
         #类型
         file-extension: yaml  #默认properties 默认生成 lagou-server-resume.yaml
         #命名空间id 默认是public
-        namespace: 83faa9bf-9b3b-4dc5-a3b5-77e61b2692a8
+        #namespace: 83faa9bf-9b3b-4dc5-a3b5-77e61b2692a8
+        namespace: d9c2d055-47aa-44fa-92f3-ef5b639b5890
         #分组配置  默认是DEFAULT_GROUP
         group: DEFAULT_GROUP
         ext-config[0]:

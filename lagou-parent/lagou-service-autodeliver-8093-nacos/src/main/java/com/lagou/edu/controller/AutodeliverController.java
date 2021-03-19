@@ -46,11 +46,25 @@ public class AutodeliverController {
         Integer forObject = restTemplate.getForObject(url, Integer.class);
         return forObject;
     }
-    //注意 不符合sentinel规则的方法和java运行时出错的服务降级方法都是静态方法(static方法)
-   /* @SentinelResource(value = "resumestatetimeoutfailback",blockHandlerClass =
+    /**
+     * @SentinelResource
+    value：定义资源名
+    blockHandlerClass：指定Sentinel规则异常兜底逻辑所在class类
+    blockHandler：指定Sentinel规则异常兜底逻辑具体哪个⽅法
+    fallbackClass：指定Java运⾏时异常兜底逻辑所在class类
+    fallback：指定Java运⾏时异常兜底逻辑具体哪个⽅法
+     */
+    //注意 不符合sentinel规则的方法和java运行时出错的服务降级)
+    /**如果不设置 value支援名称的话就是默认 方法的全限定名 例如com.lagou.edu.controller.AutodeliverController:resumestatetimeoutfailback(java.lang.Long)
+    并且 路径资源(/autodeliver/resumestatetimeoutfailback/1111)是失效的  无论怎么设置都不会进行降级和流控*/
+    /* @SentinelResource(value = "resumestatetimeoutfailback",blockHandlerClass =
             SentinelFallbackClass.class,//blockHandler 是不符合sentinel 熔断规则
             blockHandler = "handleException",fallback =
             "handleError",fallbackClass = SentinelFallbackClass.class)//fallback 是java运行时的错误*/
+    @SentinelResource(value = "resumestatetimeoutfailback",blockHandlerClass =
+            SentinelFallbackClass.class,//blockHandler 是不符合sentinel 熔断规则
+            blockHandler = "handleException",fallback =
+            "handleError",fallbackClass = SentinelFallbackClass.class)//fallback 是java运行时的错误
     @RequestMapping("/resumestatetimeoutfailback/{userId}")
     public Integer resumestatetimeoutfailback(@PathVariable Long userId) {
         // 模拟降级：模拟平均响应时间
