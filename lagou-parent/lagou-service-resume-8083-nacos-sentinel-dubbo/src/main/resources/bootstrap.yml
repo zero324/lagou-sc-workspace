@@ -1,0 +1,55 @@
+#注意配置中心相关的都放在bootstrap.yml里 项目启动的时候就获取配置中心的配置
+server:
+  port: 8083
+spring:
+  application:
+    name: lagou-server-resume
+  cloud:
+    nacos:
+      discovery:
+        # 集群中各节点信息都配置在这⾥（域名-VIP-绑定映射到各个实例的地址信息）
+        server-addr: 127.0.0.1:8848
+        #namespace: 83faa9bf-9b3b-4dc5-a3b5-77e61b2692a8
+      #nacos config配置
+      config:
+        server-addr: 127.0.0.1:8848
+        #利用nacos数据模型 通过 namespace  group  dataid 锁定配置文件
+        #dataId 的完整格式如下
+        #${prefix}-${spring:profile:active}.${file-extension}
+        #prefix 默认为 spring.application.name 的值，也可以通过配置项
+        #spring.cloud.nacos.config.prefix 来配置。
+        #spring.profile.active 即为当前环境对应的 profile。 注意：当 spring.profile.active
+        #为空时，对应的连接符 - 也将不存在，dataId 的拼接格式变成 ${prefix}.${fileextension}
+        #file-exetension 为配置内容的数据格式，可以通过配置项
+        #spring.cloud.nacos.config.file-extension 来配置。⽬前只⽀持 properties 和 yaml
+        #类型
+        file-extension: yaml  #默认properties 默认生成 lagou-server-resume.yaml
+        #命名空间id 默认是public
+        #namespace: 83faa9bf-9b3b-4dc5-a3b5-77e61b2692a8
+        namespace: d9c2d055-47aa-44fa-92f3-ef5b639b5890
+        #分组配置  默认是DEFAULT_GROUP
+        group: DEFAULT_GROUP
+        ext-config[0]:
+          data-id: abc.yaml
+          group: DEFAULT_GROUP
+          refresh: true
+        ext-config[1]:
+          data-id: def.yaml
+          group: DEFAULT_GROUP
+          refresh: true
+  #非常重要 springboot 2.1开始添加
+  main:
+    allow-bean-definition-overriding: true
+#配置dubbo配置文件
+dubbo:
+  # 挂载到 Spring Cloud 的注册中⼼
+  registry:
+    address: spring-cloud://localhost
+  protocol:
+    # dubbo 协议
+    name: dubbo
+    # dubbo 协议端⼝（ -1 表示⾃增端⼝，从 20880 开始）
+    port: -1
+  # dubbo 服务扫描基准包
+  scan:
+    base-packages: com.lagou.edu.service.impl

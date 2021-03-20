@@ -1,0 +1,57 @@
+server:
+  port: 8094
+spring:
+  application:
+    name: lagou-service-autodeliver
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848,127.0.0.1:8849,127.0.0.1:8850 #配置集群
+        #cluster-name: "bj" 优先访问同名集群的实例
+        #namespace: "设置namespaceId" 不同命名空间的实例不能相互访问
+    sentinel:
+      transport:
+        dashboard: 127.0.0.1:8080 # sentinel dashboard/console 地址
+        port: 8719 # sentinel会在该端⼝启动http server，那么这样的话，控制台定义的⼀些限流等规则才能发送传递过来，
+        #如果8719端⼝被占⽤，那么会依次+1
+       # Sentinel Nacos数据源配置，Nacos中的规则会⾃动同步到sentinel控制台的流控规则中
+      #数据源配置在sentinel级别下
+      datasource: #配置多个数据源
+       # 此处的flow为⾃定义数据源名
+       flow: # 流控规则
+         nacos:
+           server-addr: ${spring.cloud.nacos.discovery.server-addr}
+           data-id: ${spring.application.name}-flow-rules
+           groupId: DEFAULT_GROUP
+           data-type: json
+           rule-type: flow # 类型来⾃RuleType类
+       degrade: #降级规则
+         nacos:
+           server-addr: ${spring.cloud.nacos.discovery.server-addr}
+           data-id: ${spring.application.name}-degrade-rules
+           groupId: DEFAULT_GROUP
+           data-type: json
+           rule-type: degrade # 类型来⾃RuleType类
+#去掉ribbon的负载均衡配置  用dubboLB 的负载均衡
+  #非常重要设置main springboot 2.1 需要添加
+  main: #允许bean definition被重写
+    allow-bean-definition-overriding: true
+
+# springboot中暴露健康检查等端点接⼝
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  # 暴露健康接⼝的细节
+  endpoint:
+    health: # http://localhost:8090/actuator/health
+     show-details: always
+#dubbo的配置
+dubbo:
+  registry: # 挂载到 Spring Cloud 注册中⼼
+    address: spring-cloud://localhost
+    subscribe: true  #开启订阅
+  cloud:
+    # 订阅服务提供⽅的应⽤列表，订阅多个服务提供者使⽤ "," 连接
+    subscribed-services: lagou-server-resume

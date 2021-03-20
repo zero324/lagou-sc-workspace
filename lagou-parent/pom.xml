@@ -12,9 +12,11 @@
         <module>lagou-service-resume-8080</module>
         <module>lagou-service-resume-8081</module>
         <module>lagou-service-resume-8082-nacos</module>
+        <module>lagou-service-resume-8083-nacos-sentinel-dubbo</module>
         <module>lagou-service-autodeliver</module>
         <module>lagou-service-autodeliver-8093-nacos</module>
         <module>lagou-cloud-autodeliver-feign-8092</module>
+        <module>lagou-service-autodeliver-8094-nacos-sentinel-dubbo</module>
         <module>lagou-cloud-eureka-server8761</module>
         <module>lagou-cloud-eureka-server8762</module>
         <module>lagou-cloud-hystrix-dashboard</module>
@@ -25,6 +27,7 @@
         <module>lagou-cloud-stream-comsumer-9091</module>
         <module>lagou-cloud-zipkin-server-9411</module>
         <module>lagou-cloud-oauth-server-9999</module>
+        <module>lagou-dubbo-api</module>
 
     </modules>
     <!--⽗⼯程打包⽅式为pom-->
@@ -85,11 +88,13 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <!--热部署-->
-        <dependency>
+        <!--热部署组件影响spring cloud dubbo 所以需要注释掉-->
+        <!--，使⽤Dubbo RPC 和 Dubbo LB⾸先，需要删除或者注释掉⽗⼯程中的热部署依赖-->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
-        </dependency>
+        </dependency>-->
         <!--在⽗⼯程的pom⽂件中⼿动引⼊jaxb的jar，因为Jdk9之后默认没有加载该模块，
         EurekaServer使⽤到，所以需要⼿动导⼊，否则EurekaServer服务⽆法启动
         -->
