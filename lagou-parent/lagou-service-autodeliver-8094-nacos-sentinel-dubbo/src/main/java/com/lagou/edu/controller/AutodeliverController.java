@@ -2,7 +2,8 @@ package com.lagou.edu.controller;
 
 import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.lagou.edu.service.ResumeService;
-import jdk.nashorn.internal.ir.annotations.Reference;
+
+import org.apache.dubbo.config.annotation.Reference;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/autodeliver")
 public class AutodeliverController {
 
-    //服务消费端注入dubbo接口用@reference
+    //服务消费端注入dubbo接口用@reference (是dubbo的包)
     @Reference
     private ResumeService  resumeService;
 
